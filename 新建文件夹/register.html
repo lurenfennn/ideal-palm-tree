@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI助教答疑平台 - 用户注册</title>
+<style>
+:root{--blue-50:#eef6ff;--blue-100:#dbeafe;--blue-500:#3b82f6;--blue-600:#2563eb;--blue-700:#1d4ed8;--gray-300:#d1d5db;--gray-500:#6b7280;--gray-700:#374151;--danger:#dc2626}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(135deg,var(--blue-50) 0%,#f8fbff 50%,var(--blue-100) 100%);display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--gray-700)}
+.card{width:100%;max-width:420px;background:#fff;border-radius:16px;padding:40px 36px 32px;box-shadow:0 20px 45px rgba(37,99,235,.12);border:1px solid rgba(59,130,246,.08)}
+.header{text-align:center;margin-bottom:28px}
+.header .logo{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;margin-bottom:14px;border-radius:14px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));color:#fff;font-size:26px;font-weight:700}
+.header h1{font-size:22px;font-weight:700;color:var(--blue-700);margin-bottom:6px}
+.header p{font-size:14px;color:var(--gray-500)}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--gray-700);margin-bottom:6px}
+.field input{width:100%;height:44px;padding:0 14px;font-size:15px;color:var(--gray-700);background:#f9fbff;border:1px solid var(--gray-300);border-radius:10px;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.field input::placeholder{color:#9ca3af}
+.field input:focus{border-color:var(--blue-500);background:#fff;box-shadow:0 0 0 4px rgba(59,130,246,.12)}
+.field input.invalid{border-color:var(--danger);box-shadow:0 0 0 4px rgba(220,38,38,.1)}
+.field .hint{display:none;margin-top:6px;font-size:12px;color:var(--danger)}
+.field input.invalid~.hint{display:block}
+.submit-btn{width:100%;height:46px;margin-top:8px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--blue-500),var(--blue-600));color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:filter .2s,transform .1s}
+.submit-btn:hover:not(:disabled){filter:brightness(1.06)}
+.submit-btn:active:not(:disabled){transform:translateY(1px)}
+.submit-btn:disabled{opacity:.55;cursor:not-allowed}
+.footer{margin-top:22px;text-align:center;font-size:14px;color:var(--gray-500)}
+.footer a{color:var(--blue-600);text-decoration:none;font-weight:600;margin-left:4px;transition:color .2s}
+.footer a:hover{color:var(--blue-700);text-decoration:underline}
+</style>
+</head>
+<body>
+<main class="card">
+<header class="header">
+<span class="logo">AI</span>
+<h1>用户注册</h1>
+<p>创建账号，开启智能答疑之旅</p>
+</header>
+<form id="registerForm" novalidate>
+<div class="field">
+<label for="username">用户名<span style="color:var(--danger)">*</span></label>
+<input type="text" id="username" name="username" placeholder="3-20位字母、数字或下划线" autofocus required pattern="[A-Za-z0-9_]{3,20}" minlength="3" maxlength="20" autocomplete="username">
+<span class="hint">用户名需为3-20位，仅可包含字母、数字和下划线</span>
+</div>
+<div class="field">
+<label for="email">邮箱<span style="color:var(--danger)">*</span></label>
+<input type="email" id="email" name="email" placeholder="name@example.com" required autocomplete="email">
+<span class="hint">请输入有效的邮箱地址</span>
+</div>
+<div class="field">
+<label for="password">密码<span style="color:var(--danger)">*</span></label>
+<input type="password" id="password" name="password" placeholder="至少6位" required minlength="6" autocomplete="new-password">
+<span class="hint">密码长度至少为6位</span>
+</div>
+<div class="field">
+<label for="confirmPassword">确认密码<span style="color:var(--danger)">*</span></label>
+<input type="password" id="confirmPassword" name="confirmPassword" placeholder="请再次输入密码" required minlength="6" autocomplete="new-password">
+<span class="hint">两次输入的密码不一致</span>
+</div>
+<button type="submit" class="submit-btn" id="submitBtn" disabled>注册</button>
+</form>
+<footer class="footer">
+已有账号？<a href="login.html">去登录</a>
+</footer>
+</main>
+<script>
+const form=document.getElementById('registerForm');
+const btn=document.getElementById('submitBtn');
+const password=document.getElementById('password');
+const confirmPassword=document.getElementById('confirmPassword');
+function check(){
+if(confirmPassword){
+if(confirmPassword.value!==password.value){
+confirmPassword.setCustomValidity('两次输入的密码不一致');
+}else{
+confirmPassword.setCustomValidity('');
+}
+}
+const valid=form.checkValidity();
+form.querySelectorAll('input').forEach(i=>{
+i.classList.toggle('invalid',!i.checkValidity());
+});
+btn.disabled=!valid;
+}
+form.addEventListener('input',check);
+form.addEventListener('submit',e=>{
+e.preventDefault();
+alert('注册信息校验通过，表单提交成功！');
+});
+check();
+</script>
+</body>
+</html>
